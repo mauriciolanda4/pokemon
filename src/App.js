@@ -1,26 +1,51 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import PokemonForm from './components/PokemonForm';
+import PokemonData from './components/PokemonData';
+import PokemonList from './components/PokemonList';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  state = {
+    pokemon: {},
+    list: [],
+  };
+
+  handlePokemonFound = pokemon => {
+    this.setState({
+      pokemon,
+    });
+  };
+
+  handleCatch = () => {
+    const { pokemon, list } = this.state;
+
+    list.push(pokemon);
+
+    this.setState({
+      pokemon: {},
+      list,
+    });
+  };
+
+  render() {
+    const { pokemon, list } = this.state;
+
+    return (
+      <div className="App">
+        <section className="data">
+          <PokemonForm onPokemonFound={this.handlePokemonFound} />
+          <PokemonData
+            name={pokemon.name}
+            image={pokemon.image}
+            onCatch={this.handleCatch}
+          />
+        </section>
+        <section className="list">
+          <PokemonList list={list} />
+        </section>
+      </div>
+    );
+  }
 }
 
 export default App;

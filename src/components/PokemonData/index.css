@@ -1,0 +1,9 @@
+.pokemon {
+  display: flex;
+  flex-direction: row;
+}
+
+.data-container {
+  display: flex;
+  flex-direction: row;
+}
